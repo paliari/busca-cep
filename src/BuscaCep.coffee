@@ -21,7 +21,6 @@
 
     populate: (data)->
       data = @returnConverter(data)
-      console.log data
       @setVal '[data-endereco-cidade-id]', data.city.id
       @setVal '[data-endereco-cidade]', data.city.nome+'-'+data.city.uf
       @setVal '[data-endereco-logradouro]', data.street.nome
