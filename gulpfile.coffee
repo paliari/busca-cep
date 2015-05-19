@@ -1,9 +1,10 @@
 gulp = require 'gulp'
-require('require-dir')('./gulp')
 
-gulp.pths = 
+gulp.paths = 
   dist: 'dist'
   src: 'src'
+
+require('require-dir')('./gulp')
 
 gulp.task 'src', ['js']
 
