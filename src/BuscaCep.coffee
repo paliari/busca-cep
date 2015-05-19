@@ -23,7 +23,9 @@
       data = @returnConverter(data)
       if data.city
         @setVal '[data-endereco-cidade-id]', data.city.id 
-        @setVal '[data-endereco-cidade]', data.city.nome+'-'+data.city.uf
+        name = "#{data.city.nome}-#{data.city.uf}"
+        @setVal '[data-endereco-cidade]', name
+        @setVal '[placeholder=Cidade]', name
       @setVal '[data-endereco-logradouro]', data.street.nome if data.street
       @setVal '[data-endereco-bairro]', data.neighborhood.nome if data.neighborhood
       if Number(data.resultado) != 1
