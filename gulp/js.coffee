@@ -16,5 +16,6 @@ gulp.task 'js', ->
   gulp.src paths.src + '/**/*.coffee'
   .pipe $.plumber()
   .pipe $.concat('busca-cep.min.js')
+  .pipe $.coffee(bare: no)
   .pipe $.uglify()
   .pipe gulp.dest(paths.dist + '/js')
