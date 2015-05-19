@@ -1,0 +1,23 @@
+{
+  "name": "busca-cep",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/paliari/busca-cep.git"
+  },
+  "keywords": [
+    "busca-cep",
+    "busca",
+    "cep"
+  ],
+  "author": "Marcos Paliari",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/paliari/busca-cep/issues"
+  }
+}
