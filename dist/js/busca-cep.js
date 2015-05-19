@@ -37,12 +37,18 @@
 
       BuscaCep.prototype.populate = function(data) {
         data = this.returnConverter(data);
-        this.setVal('[data-endereco-cidade-id]', data.city.id);
-        this.setVal('[data-endereco-cidade]', data.city.nome + '-' + data.city.uf);
-        this.setVal('[data-endereco-logradouro]', data.street.nome);
-        this.setVal('[data-endereco-bairro]', data.neighborhood.nome);
+        if (data.city) {
+          this.setVal('[data-endereco-cidade-id]', data.city.id);
+          this.setVal('[data-endereco-cidade]', data.city.nome + '-' + data.city.uf);
+        }
+        if (data.street) {
+          this.setVal('[data-endereco-logradouro]', data.street.nome);
+        }
+        if (data.neighborhood) {
+          this.setVal('[data-endereco-bairro]', data.neighborhood.nome);
+        }
         if (Number(data.resultado) !== 1) {
-          return this.setMessage(data.mensagem);
+          return this.setMessage(data.message);
         }
       };
 
