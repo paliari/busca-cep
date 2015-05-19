@@ -36,10 +36,13 @@
       };
 
       BuscaCep.prototype.populate = function(data) {
+        var name;
         data = this.returnConverter(data);
         if (data.city) {
           this.setVal('[data-endereco-cidade-id]', data.city.id);
-          this.setVal('[data-endereco-cidade]', data.city.nome + '-' + data.city.uf);
+          name = data.city.nome + "-" + data.city.uf;
+          this.setVal('[data-endereco-cidade]', name);
+          this.setVal('[placeholder=Cidade]', name);
         }
         if (data.street) {
           this.setVal('[data-endereco-logradouro]', data.street.nome);
