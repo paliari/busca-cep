@@ -1,0 +1,21 @@
+{
+  "name": "busca-cep",
+  "version": "0.0.0",
+  "homepage": "https://github.com/paliari/busca-cep",
+  "keywords": [
+    "busca-cep",
+    "busca",
+    "cep"
+  ],
+  "authors": [
+    "Marcos Paliari"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
