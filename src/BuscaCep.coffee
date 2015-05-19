@@ -1,0 +1,2 @@
+class BuscaCep
+  constructor: (@$tag)->
