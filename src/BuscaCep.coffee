@@ -1,7 +1,7 @@
-class BuscaCep
+class window.BuscaCep
   @init = (url, format)->
-    BuscaCep.URL = url || '/api/address/cep/:cep.json'
-    BuscaCep.format = format ||
+    window.BuscaCep.URL = url || '/api/address/cep/:cep.json'
+    window.BuscaCep.format = format ||
       cidade_id: 'city.id'
       cidade: 'city'
       cidade_nome: 'city.nome'
@@ -12,7 +12,7 @@ class BuscaCep
       resultado: 'resultado'
 
   constructor: (@$el)->
-    @_url = BuscaCep.URL
+    @_url = window.BuscaCep.URL
     @find('[data-endereco-cep]').on 'blur', (e)=>
       @get e.target.value
 
@@ -45,7 +45,7 @@ class BuscaCep
 
   convertData: (data)->
     ret = {}
-    for k of BuscaCep.format
+    for k of window.BuscaCep.format
       v = @refObj data, BuscaCep.format[k]
       ret[k] = v
     ret
