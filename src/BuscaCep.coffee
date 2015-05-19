@@ -1,56 +1,58 @@
-class window.BuscaCep
-  @init = (url, format)->
-    window.BuscaCep.URL = url || '/api/address/cep/:cep.json'
-    window.BuscaCep.format = format ||
-      cidade_id: 'city.id'
-      cidade: 'city'
-      cidade_nome: 'city.nome'
-      cidade_uf: 'city.uf'
-      logradouro: 'street.nome'
-      bairro: 'neighborhood.nome'
-      mensagem: 'message'
-      resultado: 'resultado'
+(($) ->
+  class BuscaCep
+    constructor: (@$el, options)->
+      @_url = options.url
+      @returnConverter = options.returnConverter
+      @find('[data-endereco-cep]').on 'blur', (e)=>
+        @getCep e.target.value
 
-  constructor: (@$el)->
-    @_url = window.BuscaCep.URL
-    @find('[data-endereco-cep]').on 'blur', (e)=>
-      @get e.target.value
+    find: (s)-> @$el.find(s)
 
-  find: (s)-> @$el.find(s)
+    setVal: (selector, value)->
+      @find(selector).val value
 
-  get: (cep)->
-    cep = cep.replace /\D/g, ''
-    url = @_url.replace ':cep', cep
-    if cep
-      @setMessage()
-      $.get url, (data)=>
-        @populate data
+    getCep: (cep)->
+      cep = cep.replace /\D/g, ''
+      url = @_url.replace ':cep', cep
+      if cep
+        @setMessage()
+        $.get url, (data)=>
+          @populate data
 
-  populate: (data)->
-    data = @convertData(data)
-    console.log data
-    @find('[data-endereco-cidade-id]').val data.cidade_id
-    @find('[data-endereco-cidade]').val data.cidade_nome+'-'+data.cidade_uf
-    @find('[data-endereco-logradouro]').val data.logradouro
-    @find('[data-endereco-bairro]').val data.bairro
-    if Number(data.resultado) != 1
-      @setMessage data.mensagem
+    populate: (data)->
+      data = @returnConverter(data)
+      console.log data
+      @setVal '[data-endereco-cidade-id]', data.city.id
+      @setVal '[data-endereco-cidade]', data.city.nome+'-'+data.city.uf
+      @setVal '[data-endereco-logradouro]', data.street.nome
+      @setVal '[data-endereco-bairro]', data.neighborhood.nome
+      if Number(data.resultado) != 1
+        @setMessage data.mensagem
 
-  setMessage: (msg)->
-    el = @find('[data-endereco-message]')
-    if msg
-      el.addClass('alert alert-warning').html msg
-    else
-      el.removeClass('alert alert-warning').html ''
+    setMessage: (msg)->
+      el = @find('[data-endereco-message]')
+      if msg
+        el.addClass('alert alert-warning').html msg
+      else
+        el.removeClass('alert alert-warning').html ''
 
-  convertData: (data)->
-    ret = {}
-    for k of window.BuscaCep.format
-      v = @refObj data, BuscaCep.format[k]
-      ret[k] = v
-    ret
+  $.buscaCep = (el, options) ->
+    base = this
+    base.$el = $(el)
+    base.el = el
+    base.$el.data "buscaCep", base
+    base.init = ->
+      base.options = $.extend({}, $.buscaCep.defaultOptions, options)
+      new BuscaCep base.$el, base.options
 
-  refObj: (obj, str)->
-    for i in str.split('.')
-      obj = obj[i] if obj
-    obj
+    base.init()
+
+  $.buscaCep.defaultOptions =
+    url: '/api/address/cep/:cep.json'
+    returnConverter: (data)->
+      data
+
+  $.fn.buscaCep = (options) ->
+    @each ->
+      new $.buscaCep(this, options)
+) jQuery
