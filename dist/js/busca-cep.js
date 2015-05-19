@@ -1,10 +1,8 @@
 (function() {
-  var BuscaCep;
-
-  BuscaCep = (function() {
+  window.BuscaCep = (function() {
     BuscaCep.init = function(url, format) {
-      BuscaCep.URL = url || '/api/address/cep/:cep.json';
-      return BuscaCep.format = format || {
+      window.BuscaCep.URL = url || '/api/address/cep/:cep.json';
+      return window.BuscaCep.format = format || {
         cidade_id: 'city.id',
         cidade: 'city',
         cidade_nome: 'city.nome',
@@ -18,7 +16,7 @@
 
     function BuscaCep($el) {
       this.$el = $el;
-      this._url = BuscaCep.URL;
+      this._url = window.BuscaCep.URL;
       this.find('[data-endereco-cep]').on('blur', (function(_this) {
         return function(e) {
           return _this.get(e.target.value);
@@ -69,7 +67,7 @@
     BuscaCep.prototype.convertData = function(data) {
       var k, ret, v;
       ret = {};
-      for (k in BuscaCep.format) {
+      for (k in window.BuscaCep.format) {
         v = this.refObj(data, BuscaCep.format[k]);
         ret[k] = v;
       }
