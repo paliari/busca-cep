@@ -21,12 +21,13 @@
 
     populate: (data)->
       data = @returnConverter(data)
-      @setVal '[data-endereco-cidade-id]', data.city.id
-      @setVal '[data-endereco-cidade]', data.city.nome+'-'+data.city.uf
-      @setVal '[data-endereco-logradouro]', data.street.nome
-      @setVal '[data-endereco-bairro]', data.neighborhood.nome
+      if data.city
+        @setVal '[data-endereco-cidade-id]', data.city.id 
+        @setVal '[data-endereco-cidade]', data.city.nome+'-'+data.city.uf
+      @setVal '[data-endereco-logradouro]', data.street.nome if data.street
+      @setVal '[data-endereco-bairro]', data.neighborhood.nome if data.neighborhood
       if Number(data.resultado) != 1
-        @setMessage data.mensagem
+        @setMessage data.message
 
     setMessage: (msg)->
       el = @find('[data-endereco-message]')
