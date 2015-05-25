@@ -50,7 +50,7 @@
     base.init()
 
   $.buscaCep.defaultOptions =
-    url: '/api/address/cep/:cep.json'
+    url: '/api/addresses/cep/:cep.json'
     returnConverter: (data)->
       data
 
