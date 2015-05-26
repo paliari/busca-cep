@@ -36,13 +36,16 @@
       };
 
       BuscaCep.prototype.populate = function(data) {
-        var name;
+        var cityInput, name;
         data = this.returnConverter(data);
         if (data.city) {
           this.setVal('[data-endereco-cidade-id]', data.city.id);
           name = data.city.nome;
-          this.setVal('[data-endereco-cidade]', name);
-          this.setVal('[placeholder=Cidade]', name);
+          cityInput = this.find('[data-endereco-cidade], [placeholder=Cidade]');
+          cityInput.val(name);
+          cityInput.each(function() {
+            return $(this).typeahead('val', name);
+          });
         }
         if (data.street) {
           this.setVal('[data-endereco-logradouro]', data.street.nome);
