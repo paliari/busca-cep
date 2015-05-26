@@ -40,7 +40,7 @@
         data = this.returnConverter(data);
         if (data.city) {
           this.setVal('[data-endereco-cidade-id]', data.city.id);
-          name = data.city.nome + "-" + data.city.uf;
+          name = data.city.nome;
           this.setVal('[data-endereco-cidade]', name);
           this.setVal('[placeholder=Cidade]', name);
         }
@@ -81,7 +81,7 @@
       return base.init();
     };
     $.buscaCep.defaultOptions = {
-      url: '/api/address/cep/:cep.json',
+      url: '/api/addresses/cep/:cep.json',
       returnConverter: function(data) {
         return data;
       }
