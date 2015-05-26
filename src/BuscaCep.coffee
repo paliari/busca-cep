@@ -23,7 +23,7 @@
       data = @returnConverter(data)
       if data.city
         @setVal '[data-endereco-cidade-id]', data.city.id 
-        name = "#{data.city.nome}-#{data.city.uf}"
+        name = data.city.nome
         @setVal '[data-endereco-cidade]', name
         @setVal '[placeholder=Cidade]', name
       @setVal '[data-endereco-logradouro]', data.street.nome if data.street
