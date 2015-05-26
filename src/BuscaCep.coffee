@@ -24,8 +24,10 @@
       if data.city
         @setVal '[data-endereco-cidade-id]', data.city.id 
         name = data.city.nome
-        @setVal '[data-endereco-cidade]', name
-        @setVal '[placeholder=Cidade]', name
+        cityInput = @find '[data-endereco-cidade], [placeholder=Cidade]'
+        cityInput.val name
+        cityInput.each ->
+          $(@).typeahead 'val', name
       @setVal '[data-endereco-logradouro]', data.street.nome if data.street
       @setVal '[data-endereco-bairro]', data.neighborhood.nome if data.neighborhood
       if Number(data.resultado) != 1
